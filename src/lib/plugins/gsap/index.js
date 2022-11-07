@@ -35,7 +35,7 @@ gsap.registerEffect({
       reversed: config.reversed
     });
   },
-  defaults: { opacity: 0, zIndex: 1, duration: 1.8, repeat: -1, reversed: false },
+  defaults: { zIndex: 1, duration: 1.8, repeat: -1, reversed: false },
   extendTimeline: true,
 });
 
@@ -43,13 +43,9 @@ gsap.registerEffect({
   name: "pulseBorderOut",
   effect: (targets, config) => {
     return gsap.to(targets, {
-      // startAt: {
-      //   opacity: 1,
-      //   zIndex: config.zIndex,
-      //   width: '6rem',
-      //   height: '6rem',
-      //   background: 'linear-gradient(180deg, #FF6633 0%, #FF0E83 100%)'
-      // },
+      startAt: {
+        zIndex: config.zIndex,
+      },
       width: '6rem',
       height: '6rem',
       opacity: 0,
@@ -60,7 +56,7 @@ gsap.registerEffect({
       reversed: config.reversed
     });
   },
-  defaults: { opacity: 0, zIndex: 1, duration: 1.8, reversed: false },
+  defaults: { zIndex: 1, duration: 1.8 },
   extendTimeline: true,
 });
 

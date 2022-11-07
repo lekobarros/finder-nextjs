@@ -1,7 +1,5 @@
 import styled from 'styled-components'
 
-import { Pulse } from 'src/css/keyframes';
-
 const Button = styled.button`
   padding: 0;
   width: 6rem;
@@ -14,11 +12,6 @@ const Button = styled.button`
 
   &:hover {
     cursor: pointer;
-    /* animation-name: ${Pulse};
-    animation-delay: 0s;
-    animation-duration: 3600ms;
-    animation-iteration-count: infinite;
-    animation-timing-function: ease-in-out; */
   }
 `
 
