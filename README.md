@@ -1,34 +1,37 @@
-## Interactive MusiXMatch with next.js and gsap.js
+# finder-next (project in alpha)
+This application was made for a personal project for training in React and Next with Typescript and GSAP for micro UI interactions. 
 
-A simple interactive music match effect inspired by MusiXMatch's app for Android and iOS devices.
+I based this project on my first personal project named Finder, that the proposal was a build one page without frameworks with only HTML, CSS animations, and JavaScript to control the DOM. The project consists of a simple interactive music match effect inspired by MusiXMatch's app for Android and iOS devices.
 
-## Installation
+![finder-next](https://github.com/lekobarros/finder-nextjs/blob/main/thumbnail.jpg?raw=true)
 
-Install dependencies:
+[Demo](https://finder-next.netlify.app)
 
+## Build Setup
+
+```bash
+# install dependencies
+$ npm install
+
+# serve with hot reload at localhost:3000
+$ npm run dev
+
+# build for production and launch server
+$ npm run build
+$ npm run start
+
+# generate static project
+$ npm run generate
 ```
-npm install
-```
 
-Compile the code for development and start a local server:
+## Front-end Technologies
 
-```
-npm start
-```
-
-Create the build:
-
-```
-npm run dev
-```
-
-## Credits
-
-- Animation by [Musixmatch](https://dribbble.com/shots/4185206/attachments/4185206-Musixmatch?mode=media)
-
-## Misc
-
-Follow *Alex Vasconcelos*: [Twitter](https://twitter.com/abvscls), [GitHub](https://github.com/lekobarros) 
+- The core of the project run with Next.JS with TypeScript.
+- Components write with styled-components.
+- General transition and smoth animations with GSAP.
 
 ## License
-[MIT](LICENSE)
+
+MIT
+
+**Free Software, Hell Yeah!**
