@@ -1,10 +1,21 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
-interface Alex {
-  backgroundColor: string;
-  alex: number;
+interface Props {
+  width: number;
+  height: number;
 }
 
-export default styled.button<Alex>`
-  background-color: ${(props) => props.backgroundColor};
+const PulseBorder = styled.div<Props>`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: ${props => props.width ? `${props.width}px` : '0px'};
+  height: ${props => props.width ? `${props.height}px` : '0px'};
+  border-radius: 100%;
+  border: 1px solid #ff6533;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, -50%);
 `
+
+export default PulseBorder;

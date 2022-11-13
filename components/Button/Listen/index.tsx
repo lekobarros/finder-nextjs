@@ -1,18 +1,17 @@
-import styled from 'styled-components'
+import React, { ComponentPropsWithoutRef, forwardRef } from 'react'
 
-const Button = styled.button`
-  padding: 0;
-  width: 6rem;
-  height: 6rem;
-  color: rgba(255, 255, 255, 0.8);
-  background: linear-gradient(180deg, #FF6633 0%, #FF0E83 100%);
-  border-radius: 100%;
-  border: 0;
-  transition: transform 0.2s ease;
+import Button from './style'
+import IconMicrophone from 'src/icons/microphone.svg';
 
-  &:hover {
-    cursor: pointer;
-  }
-`
+export type Ref = HTMLElement;
+interface Props extends ComponentPropsWithoutRef<'div'> {
+  disabled?: boolean,
+  onClick?: React.MouseEventHandler<HTMLElement>,
+}
 
-export default Button;
+const ButtonListen = forwardRef<Ref, Props>(({ onClick, disabled }, ref) => (
+  <Button onClick={onClick} ref={ref as any} disabled={disabled}><IconMicrophone width={48} height={48} /></Button>
+));
+
+
+export default ButtonListen;

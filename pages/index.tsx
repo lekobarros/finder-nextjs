@@ -1,83 +1,65 @@
-import React, { Component, createRef } from 'react'
+import React, { Component, createRef } from 'react';
+import Head from 'next/head'
+
 import gsap from 'src/lib/plugins/gsap';
 
-import Head from 'next/head'
+interface AppProps {
+}
+
+type AppState = {
+  isListeling: boolean,
+  tl: GSAPTimeline | null,
+  tlReverse: GSAPTimeline | null
+}
 
 import ButtonListen from 'components/Button/Listen';
 import PulseBorder from 'components/PulseBorder';
 import WrapSection from 'components/WrapSections';
 
-interface AppProps { 
-  props: Object;
-}
-interface AppState { }
-
-const getRandomInt = (max: number) => Math.floor(Math.random() * max);
-
-export default class Page extends Component<AppProps, AppState> {
+export default class Page extends Component<AppProps> {
   private myRef = createRef<HTMLDivElement>();
-  private isMatched : Boolean;
+  private btnListen = createRef<HTMLDivElement>();
 
-  private tl: GSAPTimeline;
-  private tlReverse: GSAPTimeline;
+  state: AppState = {
+    isListeling: false,
+    tl: null,
+    tlReverse: null
+  }
 
   onAnimateBordes() {
-    const node = this.myRef.current?.querySelectorAll('div');
+    const node: HTMLElement[] = this.myRef.current?.querySelectorAll('div') as unknown as HTMLElement[];
 
     gsap.effects.fadeBorder(node[0], { opacity: 0.4, delay: 0 });
     gsap.effects.fadeBorder(node[1], { opacity: 0.2, delay: 0.6 });
     gsap.effects.fadeBorder(node[2], { opacity: 0.1, delay: 1.2 });
-
-    this.id = 123;
   }
 
   onAnimatePulseBorder() {
-    const node = this.myRef.current?.querySelectorAll('div');
+    const btnListen: HTMLElement = this.btnListen.current as unknown as HTMLElement;
+    const node: HTMLElement[] = this.myRef.current?.querySelectorAll('div') as unknown as HTMLElement[];
 
     // Kill Animation
-    node?.forEach(el => gsap.killTweensOf(el))
+    node?.forEach(el => gsap.killTweensOf(el));
 
-    const onUpdate = function () {
-      console.log(this.progress(), 555,)
-    }
+    gsap.set(node, { opacity: 0 });
 
     // Active Pulse Border
-    this.tl = gsap.timeline({});
-    this.tl.addLabel('start', '>=0');
-    this.tl.pulseBorder(node[0], { zIndex: 3, delay: 0 }, 'start');
-    this.tl.pulseBorder(node[1], { zIndex: 3, delay: 0.6 }, 'start');
-    this.tl.pulseBorder(node[2], { zIndex: 3, delay: 1.2 }, 'start');
+    this.state.tl = gsap.timeline({});
+    this.state.tl.addLabel('start', '>=0');
+    this.state.tl.pulseButton(btnListen, { delay: 0 });
+    this.state.tl.pulseBorder(node[0], { zIndex: 3, delay: 0 }, 'start');
+    this.state.tl.pulseBorder(node[1], { zIndex: 3, delay: 0.6 }, 'start');
+    this.state.tl.pulseBorder(node[2], { zIndex: 3, delay: 1.2 }, 'start');
 
-    //
-    const expectedMatch = getRandomInt(5) * 1000;
+    this.setState((state) => ({ isListeling: true }));
   }
 
-  onClick() {
-    const node = this.myRef.current?.querySelectorAll('div');
-    const children = this.tl.getChildren();
-
-    this.tlReverse = gsap.timeline({});
-    this.tlReverse.addLabel('start', '>=0');
-
-    children.forEach((el, index) => {
-      if (el.progress() >= 0.50) el.repeat(0);
-      else {
-        gsap.killTweensOf(el.targets()[0])
-        const timeline = el.time();
-        this.tlReverse.pulseBorderOut(el.targets()[0], { zIndex: index, duration: el.time() }, 'start');
-      }
-    });
-
-  }
-
-  onEndAnimatePulseBorder() {
-    const node = this.myRef.current?.querySelectorAll('div');
-  }
-
+  // Hooks
   componentDidMount() {
     this.onAnimateBordes();
   }
 
+  // View
   render() {
     return (
       <div>
@@ -87,16 +69,21 @@ export default class Page extends Component<AppProps, AppState> {
         </Head>
 
         <WrapSection>
-          <ButtonListen onClick={() => this.onAnimatePulseBorder()} />
+          <ButtonListen onClick={() => this.onAnimatePulseBorder()} ref={this.btnListen} disabled={this.state.isListeling} />
 
           {/* Borders with Effect Pulse In/Out */}
           <div ref={this.myRef}>
-            <PulseBorder width="192" height="192" delay="0.4" opacity="0.8" />
-            <PulseBorder width="288" height="288" delay="0.4" opacity="0.6" />
-            <PulseBorder width="288" height="288" delay="0.4" opacity="0.6" />
+            <PulseBorder width={192} height={192} />
+            <PulseBorder width={288} height={288} />
+            <PulseBorder width={288} height={288} />
           </div>
 
-          <button onClick={() => this.onClick()} style={{ position: 'absolute', zIndex: 999 }} >123</button>
+          <div>
+            <h2>Echo</h2>
+            <p>Foxes</p>
+          </div>
+
+          {/* <button onClick={() => this.onClick()} style={{ position: 'absolute', zIndex: 999 }} >123</button> */}
         </WrapSection>
       </div>
     )

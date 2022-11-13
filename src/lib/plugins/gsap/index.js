@@ -15,6 +15,31 @@ gsap.registerEffect({
 });
 
 gsap.registerEffect({
+  name: "pulseButton",
+  effect: (targets, config) => {
+    return gsap.to(targets, {
+      keyframes: { 
+        "0%": { scale: 1 }, 
+        "40%": { scale: 0.95 }, 
+        "80%": { scale: 1.05 },
+        "100%": { scale: 1 }, 
+        easeEach: 'easeIn' 
+      },
+      repeat: -1,
+      repeatDelay: 0.3,
+      delay: config.delay,
+      duration: config.duration
+    });
+  },
+  defaults: { opacity: 0, duration: 0.3 },
+  extendTimeline: true,
+});
+
+// | 0 0
+// | 0.6 0.6
+// | 1.2 0.6
+
+gsap.registerEffect({
   name: "pulseBorder",
   effect: (targets, config) => {
     return gsap.to(targets, {
