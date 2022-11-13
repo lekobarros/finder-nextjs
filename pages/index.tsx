@@ -8,8 +8,8 @@ interface AppProps {
 
 type AppState = {
   isListeling: boolean,
-  tl: GSAPTimeline | null,
-  tlReverse: GSAPTimeline | null
+  tl: GSAPTimeline,
+  tlReverse: GSAPTimeline
 }
 
 import ButtonListen from 'components/Button/Listen';
@@ -22,8 +22,8 @@ export default class Page extends Component<AppProps> {
 
   state: AppState = {
     isListeling: false,
-    tl: null,
-    tlReverse: null
+    tl: gsap.timeline(),
+    tlReverse: gsap.timeline()
   }
 
   onAnimateBordes() {
@@ -44,14 +44,13 @@ export default class Page extends Component<AppProps> {
     gsap.set(node, { opacity: 0 });
 
     // Active Pulse Border
-    this.state.tl = gsap.timeline({});
     this.state.tl.addLabel('start', '>=0');
     this.state.tl.pulseButton(btnListen, { delay: 0 });
     this.state.tl.pulseBorder(node[0], { zIndex: 3, delay: 0 }, 'start');
     this.state.tl.pulseBorder(node[1], { zIndex: 3, delay: 0.6 }, 'start');
     this.state.tl.pulseBorder(node[2], { zIndex: 3, delay: 1.2 }, 'start');
 
-    this.setState((state) => ({ isListeling: true }));
+    this.setState({ isListeling: true });
   }
 
   // Hooks
