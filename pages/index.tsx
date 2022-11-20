@@ -2,6 +2,7 @@ import React, { Component, createRef } from 'react';
 import Head from 'next/head'
 
 import gsap from 'src/lib/plugins/gsap';
+import { getRandomInt } from 'src/utils';
 
 interface AppProps {
 }
@@ -9,7 +10,8 @@ interface AppProps {
 type AppState = {
   isListeling: boolean,
   tl: GSAPTimeline,
-  tlReverse: GSAPTimeline
+  tlReverse: GSAPTimeline,
+  alex: string
 }
 
 import ButtonListen from 'components/Button/Listen';
@@ -22,8 +24,9 @@ export default class Page extends Component<AppProps> {
 
   state: AppState = {
     isListeling: false,
-    tl: gsap.timeline(),
-    tlReverse: gsap.timeline()
+    tl: gsap.timeline({ paused: !0 }),
+    tlReverse: gsap.timeline({ paused: !0 }),
+    alex: 'oioi'
   }
 
   onAnimateBordes() {
@@ -44,13 +47,54 @@ export default class Page extends Component<AppProps> {
     gsap.set(node, { opacity: 0 });
 
     // Active Pulse Border
+    this.state.tl.kill();
     this.state.tl.addLabel('start', '>=0');
     this.state.tl.pulseButton(btnListen, { delay: 0 });
     this.state.tl.pulseBorder(node[0], { zIndex: 3, delay: 0 }, 'start');
     this.state.tl.pulseBorder(node[1], { zIndex: 3, delay: 0.6 }, 'start');
     this.state.tl.pulseBorder(node[2], { zIndex: 3, delay: 1.2 }, 'start');
+    this.state.tl.play();
+  }
 
+  onReverseAnimatePulseBorder () {
+    const btnListen: HTMLElement = this.btnListen.current as unknown as HTMLElement;
+    const children = this.state.tl.getChildren();
+
+    this.state.tlReverse.kill();
+    this.state.tlReverse.addLabel('start', '>=0');
+    // Control the progress from tl animation
+    // When children.progress is more .50 finish the animation
+    // When is less .80 reverse the animation
+    children.forEach((el, index) => {
+      if (index == 0) el.repeat(0);
+      else if (el.progress() >= 0.70) el.repeat(0);
+      else {
+        gsap.killTweensOf(el.targets()[0])
+        this.state.tlReverse.pulseBorderOut(el.targets()[0], { zIndex: index, duration: el.time() }, 'start');
+      }
+    });
+    this.state.tlReverse.play();
+  }
+
+  async doInitFetchTrack () {
+    console.log('go')
+    this.onAnimatePulseBorder();
     this.setState({ isListeling: true });
+
+    // Fetch Track
+    const timeToFetch = getRandomInt(5) * 1000;
+    setTimeout(() => this.onFetchTrack(), timeToFetch);
+  }
+
+
+  onFetchTrack () {
+    console.log('end')
+    // this.state.tl.kill();
+
+    this.setState({ isListeling: false });
+    this.onReverseAnimatePulseBorder();
+
+    // !
   }
 
   // Hooks
@@ -68,7 +112,8 @@ export default class Page extends Component<AppProps> {
         </Head>
 
         <WrapSection>
-          <ButtonListen onClick={() => this.onAnimatePulseBorder()} ref={this.btnListen} disabled={this.state.isListeling} />
+          { this.state.alex }
+          <ButtonListen onClick={() => this.doInitFetchTrack()} ref={this.btnListen} disabled={this.state.isListeling} />
 
           {/* Borders with Effect Pulse In/Out */}
           <div ref={this.myRef}>
