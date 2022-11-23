@@ -1,7 +1,7 @@
 # finder-next (project in alpha)
 This application was made for a personal project for training in React and Next with Typescript and GSAP for micro UI interactions. 
 
-I based this project on my first personal project named Finder, that the proposal was a build one page without frameworks with only HTML, CSS animations, and JavaScript to control the DOM. The project consists of a simple interactive music match effect inspired by MusiXMatch's app for Android and iOS devices.
+I based this project on my first personal project named [Finder](https://github.com/lekobarros/finder), that the proposal was a build one page without frameworks with only HTML, CSS animations, and JavaScript to control the DOM. The project consists of a simple interactive music match effect inspired by MusiXMatch's app for Android and iOS devices.
 
 ![finder-next](https://github.com/lekobarros/finder-nextjs/blob/main/thumbnail.jpg?raw=true)
 
