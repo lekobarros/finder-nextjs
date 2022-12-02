@@ -28,7 +28,7 @@ interface Props extends ComponentPropsWithoutRef<'div'> {
 
 export default forwardRef<Ref, Props>(({ artistName, musicName }, ref) => (
   <ListenTrack ref={ref as any} >
-    <h2>{artistName}</h2>
+    <h2 className='font-bold text-xl'>{artistName}</h2>
     <p>{musicName}</p>
   </ListenTrack>
 ));

@@ -13,7 +13,7 @@ interface Props {
 
 const ButtonListen = forwardRef<Ref, Props>(({ isMatch, onClick, disabled }, ref) => (
   <Button onClick={onClick} ref={ref as any} disabled={disabled}>
-    { !isMatch ? <IconMicrophone width={48} height={48} /> : <IconCheck width={48} height={48} /> }
+    {!isMatch ? <IconMicrophone className='inline-block' width={48} height={48} /> : <IconCheck className='inline-block' width={48} height={48} />}
   </Button>
 ));
 
