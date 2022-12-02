@@ -3,13 +3,8 @@ import Head from 'next/head'
 import { withRouter, NextRouter } from 'next/router'
 import Router, { useRouter } from 'next/router'
 
-import GSDevTools from 'src/lib/GSDevTools';
-
-
 import gsap from 'src/lib/plugins/gsap';
 import { getRandomInt } from 'src/utils';
-
-gsap.registerPlugin(GSDevTools)
 
 import $_api from 'src/api';
 
@@ -204,9 +199,9 @@ export default class Page extends Component<AppProps> {
 
         {/* Borders with Effect Pulse In/Out */}
         <div ref={this.myRef}>
-          <PulseBorder width={192} height={192} opacity={1} />
-          <PulseBorder width={288} height={288} opacity={0.6} />
-          <PulseBorder width={288} height={288} opacity={0.4} />
+          <PulseBorder width={192} height={192} />
+          <PulseBorder width={288} height={288} />
+          <PulseBorder width={288} height={288} />
           <PulseBorder width={288} height={288} />
           <PulseBorder width={288} height={288} />
         </div>
